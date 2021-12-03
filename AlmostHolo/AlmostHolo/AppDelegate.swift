@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  AlmostHolo
-//
-//  Created by Madalina on 03.12.2021.
-//
-
 import UIKit
 
 @main
