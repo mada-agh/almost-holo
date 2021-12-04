@@ -11,6 +11,7 @@
 		E32888D8275B742F00858DCD /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32888D6275B742F00858DCD /* Enums.swift */; };
 		E32888D9275B742F00858DCD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32888D7275B742F00858DCD /* Extensions.swift */; };
 		E32888DC275B743F00858DCD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E32888DA275B743F00858DCD /* Main.storyboard */; };
+		E32888DE275BB3CA00858DCD /* ControlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32888DD275BB3CA00858DCD /* ControlManager.swift */; };
 		E3384AFB275AB91200B3EF3B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3384AF5275AB91200B3EF3B /* LaunchScreen.storyboard */; };
 		E3384AFC275AB91200B3EF3B /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = E3384AF6275AB91200B3EF3B /* art.scnassets */; };
 		E3384AFD275AB91200B3EF3B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3384AF7275AB91200B3EF3B /* ViewController.swift */; };
@@ -23,6 +24,7 @@
 		E32888D6275B742F00858DCD /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		E32888D7275B742F00858DCD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		E32888DB275B743F00858DCD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ../../../../Development/BIM/LearnitySceneKit/Learnity/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E32888DD275BB3CA00858DCD /* ControlManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlManager.swift; sourceTree = "<group>"; };
 		E3384ADD275AB1C000B3EF3B /* AlmostHolo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlmostHolo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3384AF5275AB91200B3EF3B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E3384AF6275AB91200B3EF3B /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				E3384AF7275AB91200B3EF3B /* ViewController.swift */,
 				E32888D6275B742F00858DCD /* Enums.swift */,
 				E32888D7275B742F00858DCD /* Extensions.swift */,
+				E32888DD275BB3CA00858DCD /* ControlManager.swift */,
 			);
 			path = AlmostHolo;
 			sourceTree = "<group>";
@@ -148,6 +151,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E32888DE275BB3CA00858DCD /* ControlManager.swift in Sources */,
 				E3384AFE275AB91200B3EF3B /* AppDelegate.swift in Sources */,
 				E32888D8275B742F00858DCD /* Enums.swift in Sources */,
 				E3384AFD275AB91200B3EF3B /* ViewController.swift in Sources */,
