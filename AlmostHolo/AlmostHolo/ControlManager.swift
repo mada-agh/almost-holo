@@ -3,12 +3,16 @@ import Foundation
 class ControlManager {
   //Singletone
   static let shared = ControlManager()
-  private init() {}
+  private init() {
+    GesturesPresenter.shared.setGesturesListBasedOnFlow(flowState: flowState)
+  }
   
   //MARK: Variables
+  var delegate : ViewController?
   var flowState : FlowState = .view {
     didSet{
       handleFlowStateChange()
+      GesturesPresenter.shared.setGesturesListBasedOnFlow(flowState: flowState)
     }
   }
   var gestureType: GestureType = .nothing {
@@ -25,6 +29,7 @@ class ControlManager {
   }
   
   private func handleFlowStateChange(){
+    delegate?.disableGestureRecognitionForShort()
     switch flowState {
       case .view:
         print("Enter on View mode")
@@ -67,6 +72,7 @@ class ControlManager {
   private func handleGestureOne() {
     switch flowState {
       case .view:
+        flowState = .view
         print("focus next")
       case .focus:
         print("do nothing")

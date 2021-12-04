@@ -1,8 +1,19 @@
 import Foundation
 import SceneKit
 
-
 extension SCNNode {
+  var isFocusable : Bool {
+    get {
+      return self.name?.contains("focusable") ?? false
+    }
+  }
+  
+  var isLayered : Bool {
+    get {
+      return self.name?.contains("layered") ?? false
+    }
+  }
+  
   func centerPivot() {
     var min = SCNVector3Zero
     var max = SCNVector3Zero
@@ -17,15 +28,15 @@ extension SCNNode {
 
 extension SCNVector3 {
   static func - (l: SCNVector3, r: SCNVector3) -> SCNVector3 {
-    return SCNVector3Make(l.x - r.x, l.y - r.y, l.z - r.z)
+      return SCNVector3Make(l.x - r.x, l.y - r.y, l.z - r.z)
   }
   
   static func + (l: SCNVector3, r: SCNVector3) -> SCNVector3 {
-    return SCNVector3Make(l.x + r.x, l.y + r.y, l.z + r.z)
+      return SCNVector3Make(l.x + r.x, l.y + r.y, l.z + r.z)
   }
   
   static func * (l: SCNVector3, scalar: Float) -> SCNVector3 {
-    return SCNVector3Make(l.x * scalar, l.y * scalar, l.z * scalar)
+      return SCNVector3Make(l.x * scalar, l.y * scalar, l.z * scalar)
   }
 }
 

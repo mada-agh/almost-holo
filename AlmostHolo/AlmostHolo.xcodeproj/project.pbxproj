@@ -8,27 +8,35 @@
 
 /* Begin PBXBuildFile section */
 		E32888D5275B732D00858DCD /* ML in Resources */ = {isa = PBXBuildFile; fileRef = E32888D4275B732D00858DCD /* ML */; };
-		E32888D8275B742F00858DCD /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32888D6275B742F00858DCD /* Enums.swift */; };
-		E32888D9275B742F00858DCD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32888D7275B742F00858DCD /* Extensions.swift */; };
-		E32888DC275B743F00858DCD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E32888DA275B743F00858DCD /* Main.storyboard */; };
-		E32888DE275BB3CA00858DCD /* ControlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32888DD275BB3CA00858DCD /* ControlManager.swift */; };
+		E32888E3275BBDE000858DCD /* Pose6AndBackground.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = E32888E2275BBDDD00858DCD /* Pose6AndBackground.mlpackage */; };
+		E32888E7275C2AF000858DCD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E32888E6275C2AF000858DCD /* Main.storyboard */; };
+		E32888EF275C2B4900858DCD /* GesturesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32888EE275C2B4900858DCD /* GesturesPresenter.swift */; };
+		E32888F2275C2B5500858DCD /* GestureInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32888F0275C2B5500858DCD /* GestureInfoCell.swift */; };
+		E32888F3275C2B5500858DCD /* GestureData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32888F1275C2B5500858DCD /* GestureData.swift */; };
+		E32888F8275C2D6600858DCD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32888F4275C2D6500858DCD /* ViewController.swift */; };
+		E32888F9275C2D6600858DCD /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32888F5275C2D6500858DCD /* Enums.swift */; };
+		E32888FA275C2D6600858DCD /* ControlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32888F6275C2D6500858DCD /* ControlManager.swift */; };
+		E32888FB275C2D6600858DCD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32888F7275C2D6500858DCD /* Extensions.swift */; };
 		E3384AFB275AB91200B3EF3B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3384AF5275AB91200B3EF3B /* LaunchScreen.storyboard */; };
 		E3384AFC275AB91200B3EF3B /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = E3384AF6275AB91200B3EF3B /* art.scnassets */; };
-		E3384AFD275AB91200B3EF3B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3384AF7275AB91200B3EF3B /* ViewController.swift */; };
 		E3384AFE275AB91200B3EF3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3384AF8275AB91200B3EF3B /* AppDelegate.swift */; };
 		E3384AFF275AB91200B3EF3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3384AF9275AB91200B3EF3B /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E32888D4275B732D00858DCD /* ML */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ML; sourceTree = "<group>"; };
-		E32888D6275B742F00858DCD /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
-		E32888D7275B742F00858DCD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		E32888DB275B743F00858DCD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ../../../../Development/BIM/LearnitySceneKit/Learnity/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E32888DD275BB3CA00858DCD /* ControlManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlManager.swift; sourceTree = "<group>"; };
+		E32888E2275BBDDD00858DCD /* Pose6AndBackground.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = Pose6AndBackground.mlpackage; sourceTree = "<group>"; };
+		E32888E6275C2AF000858DCD /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		E32888EE275C2B4900858DCD /* GesturesPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GesturesPresenter.swift; sourceTree = "<group>"; };
+		E32888F0275C2B5500858DCD /* GestureInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureInfoCell.swift; sourceTree = "<group>"; };
+		E32888F1275C2B5500858DCD /* GestureData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureData.swift; sourceTree = "<group>"; };
+		E32888F4275C2D6500858DCD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E32888F5275C2D6500858DCD /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		E32888F6275C2D6500858DCD /* ControlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlManager.swift; sourceTree = "<group>"; };
+		E32888F7275C2D6500858DCD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		E3384ADD275AB1C000B3EF3B /* AlmostHolo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlmostHolo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3384AF5275AB91200B3EF3B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E3384AF6275AB91200B3EF3B /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
-		E3384AF7275AB91200B3EF3B /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E3384AF8275AB91200B3EF3B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E3384AF9275AB91200B3EF3B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,16 +71,20 @@
 		E3384ADF275AB1C000B3EF3B /* AlmostHolo */ = {
 			isa = PBXGroup;
 			children = (
+				E32888E2275BBDDD00858DCD /* Pose6AndBackground.mlpackage */,
 				E32888D4275B732D00858DCD /* ML */,
 				E3384AF8275AB91200B3EF3B /* AppDelegate.swift */,
 				E3384AF6275AB91200B3EF3B /* art.scnassets */,
 				E3384AF9275AB91200B3EF3B /* Assets.xcassets */,
 				E3384AF5275AB91200B3EF3B /* LaunchScreen.storyboard */,
-				E32888DA275B743F00858DCD /* Main.storyboard */,
-				E3384AF7275AB91200B3EF3B /* ViewController.swift */,
-				E32888D6275B742F00858DCD /* Enums.swift */,
-				E32888D7275B742F00858DCD /* Extensions.swift */,
-				E32888DD275BB3CA00858DCD /* ControlManager.swift */,
+				E32888E6275C2AF000858DCD /* Main.storyboard */,
+				E32888EE275C2B4900858DCD /* GesturesPresenter.swift */,
+				E32888F1275C2B5500858DCD /* GestureData.swift */,
+				E32888F0275C2B5500858DCD /* GestureInfoCell.swift */,
+				E32888F6275C2D6500858DCD /* ControlManager.swift */,
+				E32888F5275C2D6500858DCD /* Enums.swift */,
+				E32888F7275C2D6500858DCD /* Extensions.swift */,
+				E32888F4275C2D6500858DCD /* ViewController.swift */,
 			);
 			path = AlmostHolo;
 			sourceTree = "<group>";
@@ -138,7 +150,7 @@
 			files = (
 				E32888D5275B732D00858DCD /* ML in Resources */,
 				E3384AFC275AB91200B3EF3B /* art.scnassets in Resources */,
-				E32888DC275B743F00858DCD /* Main.storyboard in Resources */,
+				E32888E7275C2AF000858DCD /* Main.storyboard in Resources */,
 				E3384AFF275AB91200B3EF3B /* Assets.xcassets in Resources */,
 				E3384AFB275AB91200B3EF3B /* LaunchScreen.storyboard in Resources */,
 			);
@@ -151,26 +163,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E32888DE275BB3CA00858DCD /* ControlManager.swift in Sources */,
+				E32888F8275C2D6600858DCD /* ViewController.swift in Sources */,
+				E32888F9275C2D6600858DCD /* Enums.swift in Sources */,
+				E32888FA275C2D6600858DCD /* ControlManager.swift in Sources */,
+				E32888FB275C2D6600858DCD /* Extensions.swift in Sources */,
+				E32888E3275BBDE000858DCD /* Pose6AndBackground.mlpackage in Sources */,
+				E32888EF275C2B4900858DCD /* GesturesPresenter.swift in Sources */,
+				E32888F2275C2B5500858DCD /* GestureInfoCell.swift in Sources */,
 				E3384AFE275AB91200B3EF3B /* AppDelegate.swift in Sources */,
-				E32888D8275B742F00858DCD /* Enums.swift in Sources */,
-				E3384AFD275AB91200B3EF3B /* ViewController.swift in Sources */,
-				E32888D9275B742F00858DCD /* Extensions.swift in Sources */,
+				E32888F3275C2B5500858DCD /* GestureData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		E32888DA275B743F00858DCD /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E32888DB275B743F00858DCD /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		E3384AEE275AB1C300B3EF3B /* Debug */ = {

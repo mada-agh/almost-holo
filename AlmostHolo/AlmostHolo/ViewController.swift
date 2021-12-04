@@ -8,6 +8,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
   @IBOutlet weak var sceneViewLeft: ARSCNView!
   @IBOutlet weak var sceneViewRight: ARSCNView!
   @IBOutlet weak var debugView: UIView!
+  @IBOutlet weak var gestureTableView: UITableView!
   
   @IBOutlet weak var predictionLabel: UILabel!
   @IBOutlet weak var predictionLabel2: UILabel!
@@ -16,12 +17,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
   var initialObjectsClones = [SCNNode]()
   var indexFocusedObject = -1
   
-    //MARK: Prediction variables
+  //MARK: Prediction variables
   var model : Pose6AndBackground!
   let predictEvery = 3
   var frameCounter = -1
   
-    //MARK: Follow gesture variables
+  //MARK: Follow gesture variables
+  var isWaitingForGesture = true
   let predictGestureMovingEvery = 9
   var previousFingerTipPosition = CGPoint(x: -1, y: -1)
   var movingState = MovingState.nothing {
@@ -31,18 +33,17 @@ class ViewController: UIViewController, ARSCNViewDelegate {
   }
   var movingTreshold = CGFloat(50)
   
-    //MARK: Logic management
+  //MARK: Logic management
   let gestureManager = ControlManager.shared
   
-  
-    //MARK: Scenes
+  //MARK: Scenes
   let shipScene = SCNScene(named: "art.scnassets/ship.scn")!
   let earthScene = SCNScene(named: "art.scnassets/earth.scn")!
   let geometryScene = SCNScene(named: "art.scnassets/geometry.scn")!
   var scenes = [SCNScene]()
   var indexCurrentScene = 0
   
-    //MARK:  DEBUG MODE VARIABLES
+  //MARK:  DEBUG MODE VARIABLES
   @IBOutlet weak var leftSceneContainer: UIView!
   @IBOutlet weak var segmentedControl: UISegmentedControl!
   @IBOutlet weak var xSwitch: UISwitch!
@@ -51,10 +52,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
   let isDebug = true
   var selectedTransformationType = GeometricTransformationTypes.translation
   
-  
-  
   override func viewDidLoad() {
     super.viewDidLoad()
+    gestureTableView.delegate = self
+    gestureTableView.dataSource = self
+    gestureManager.delegate = self
     
     do {
       model = try Pose6AndBackground(configuration: MLModelConfiguration())
@@ -88,7 +90,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
-      /// Create a session configuration
+    /// Create a session configuration
     let configuration = ARWorldTrackingConfiguration()
     configuration.frameSemantics.insert(.personSegmentationWithDepth)
     configuration.planeDetection = [.horizontal, .vertical]
@@ -100,7 +102,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     
-      /// Pause the view's session
+    /// Pause the view's session
     sceneViewLeft.session.pause()
   }
   
@@ -137,12 +139,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
       indexFocusedObject += 1
     }
     
-      //return object to its initial position
+    //return object to its initial position
     if prevIndexFocusedObject != -1 {
       let initialScaleValue = CGFloat(initialObjectsClones[indexFocusedObject].scale.x)
       currentObjects[indexFocusedObject].runAction(SCNAction.scale(to: initialScaleValue, duration: 2))
       translateAndRotateObjectAction(startObject: currentObjects[prevIndexFocusedObject], finalObject: initialObjectsClones[prevIndexFocusedObject], isReturningToInitialPosition: true)
     }
+    
+    // TODO: add this line after merge in focusOnNextObject 
+    GesturesPresenter.shared.focusedObject = currentObjects[indexFocusedObject]
     
     moveObjectInFrontOfCamera()
   }
@@ -153,17 +158,17 @@ class ViewController: UIViewController, ARSCNViewDelegate {
   
   @IBAction func tapPlus(_ sender: Any) {
     switch selectedTransformationType {
-      case .translation : translate(0.3)
-      case .rotation : rotate(5)
-      case .scale : scale(1.25)
+    case .translation : translate(0.3)
+    case .rotation : rotate(5)
+    case .scale : scale(1.25)
     }
   }
   
   @IBAction func tapMinus(_ sender: Any) {
     switch selectedTransformationType {
-      case .translation : translate(-0.3)
-      case .rotation : rotate(-5)
-      case .scale : scale(0.75)
+    case .translation : translate(-0.3)
+    case .rotation : rotate(-5)
+    case .scale : scale(0.75)
     }
   }
   
@@ -210,12 +215,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
   }
   
   func translateAndRotateObjectAction(startObject: SCNNode, finalObject: SCNNode, isReturningToInitialPosition: Bool) {
-      //calculate final rotation
+    //calculate final rotation
     let finalObjRotation = finalObject.rotation
     let rotateAction = SCNAction.rotate(toAxisAngle: finalObjRotation,
                                         duration: 1)
     
-      //calculate final position
+    //calculate final position
     let finalObjTransform = finalObject.transform
     let finalObjOrientation = SCNVector3(-finalObjTransform.m31, -finalObjTransform.m32, -finalObjTransform.m33)
     let finalObjLocation = SCNVector3(finalObjTransform.m41, finalObjTransform.m42, finalObjTransform.m43)
@@ -262,26 +267,28 @@ class ViewController: UIViewController, ARSCNViewDelegate {
   
   func updateFrame() {
   }
-    // MARK: - ARSCNViewDelegate
+  // MARK: - ARSCNViewDelegate
   
   func session(_ session: ARSession, didFailWithError error: Error) {
-      /// Present an error message to the user
+    /// Present an error message to the user
     
   }
   
   func sessionWasInterrupted(_ session: ARSession) {
-      /// Inform the user that the session has been interrupted, for example, by presenting an overlay
+    /// Inform the user that the session has been interrupted, for example, by presenting an overlay
     
   }
   
   func sessionInterruptionEnded(_ session: ARSession) {
-      /// Reset tracking and/or remove existing anchors if consistent tracking is required
+    /// Reset tracking and/or remove existing anchors if consistent tracking is required
     
   }
 }
 
 extension ViewController: ARSessionDelegate{
   func session(_ session: ARSession, didUpdate frame: ARFrame) {
+    if !isWaitingForGesture { return }
+    
     frameCounter += 1
     
     let pixelBuffer = frame.capturedImage
@@ -297,7 +304,7 @@ extension ViewController: ARSessionDelegate{
     }
     
     guard let handPoses = handPoseReques.results, !handPoses.isEmpty else {
-        //Aici intra cand nu este mana in cadru
+      //Aici intra cand nu este mana in cadru
       return
     }
     let handObservation = handPoses.first
@@ -310,15 +317,15 @@ extension ViewController: ARSessionDelegate{
           updatePredictionLabels(with: "\(handPosePrediction.label) \(confidence)")
           gestureManager.setGestureType(handPosePrediction.label)
         } else {
-            // TODO: check if we actually need this state update
-          gestureManager.setGestureType(GestureType.nothing.rawValue)
+          // TODO: check if we actually need this state update
+//          gestureManager.setGestureType(GestureType.nothing.rawValue)
         }
       }catch{
         print("Prediction error: \(error)")
       }
       
-        ///monitoring Finger Index TIP position on screen (up/down only)
-        //checkMoving(handObservation)
+      ///monitoring Finger Index TIP position on screen (up/down only)
+      //checkMoving(handObservation)
     }
   }
   
@@ -365,14 +372,14 @@ extension ViewController: ARSessionDelegate{
   
   private func handleChangeMovingState(_ newValue : MovingState){
     switch newValue {
-      case .up:
-        rotate(0.25)
-      case .down:
-        rotate(-0.25)
-      case .nothing:
-        if !currentObjects.isEmpty && indexFocusedObject >= 0 {
-          currentObjects[indexFocusedObject].removeAllActions()
-        }
+    case .up:
+      rotate(0.25)
+    case .down:
+      rotate(-0.25)
+    case .nothing:
+      if !currentObjects.isEmpty && indexFocusedObject >= 0 {
+        currentObjects[indexFocusedObject].removeAllActions()
+      }
     }
   }
   
@@ -381,5 +388,34 @@ extension ViewController: ARSessionDelegate{
     predictionLabel.text = predictionAndMoving
     predictionLabel2.text = predictionAndMoving
   }
+}
+
+extension ViewController : GestureRecognitionDelegate {
+  func disableGestureRecognitionForShort(){
+    isWaitingForGesture = false
+    DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+      self.isWaitingForGesture = true
+    })
+  }
+}
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource{
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return GesturesPresenter.shared.gesturesList.count
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "gestureInfo", for: indexPath) as! GestureInfoCell
+    let currentGest = GesturesPresenter.shared.gesturesList[indexPath.row]
+    
+    cell.setGesture(gesture: currentGest)
+    return cell
+  }
+  
+  
+}
+
+protocol GestureRecognitionDelegate{
+  func disableGestureRecognitionForShort()
 }
 
