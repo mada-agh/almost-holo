@@ -1,20 +1,21 @@
 import Foundation
 
 class ControlManager {
-  //Singletone
+    //Singletone
   static let shared = ControlManager()
   private init() {
-    GesturesPresenter.shared.setGesturesListBasedOnFlow(flowState: flowState)
+    GesturesPresenter.shared.setGesturesList(for: flowState)
   }
   
-  //MARK: Variables
+    //MARK: Variables
   var delegate : ViewController?
   var flowState : FlowState = .view {
     didSet{
-      handleFlowStateChange()
-      GesturesPresenter.shared.setGesturesListBasedOnFlow(flowState: flowState)
+      GesturesPresenter.shared.setGesturesList(for: flowState)
+      delegate?.gestureTableView.reloadData()
     }
   }
+  
   var gestureType: GestureType = .nothing {
     didSet{
       print(gestureType.rawValue)
@@ -22,27 +23,17 @@ class ControlManager {
     }
   }
   
-  //MARK: Functions
+    //MARK: Functions
   func setGestureType(_ type: String){
     let enumGestureType = GestureType(rawValue: type) ?? .nothing
     self.gestureType = enumGestureType
   }
   
-  private func handleFlowStateChange(){
-    delegate?.disableGestureRecognitionForShort()
-    switch flowState {
-      case .view:
-        print("Enter on View mode")
-      case .edit:
-        print("Enter on Edit mode")
-      case .focus:
-        print("Enter on Focus mode")
-      case .action:
-        print("Enter on Action mode")
-    }
-  }
-  
   private func handleDetectedGesture(){
+    if gestureType != .nothing && gestureType != .background {
+      delegate?.disableGestureRecognitionForShort()
+    }
+    
     switch gestureType {
       case .one:
         handleGestureOne()
@@ -72,40 +63,58 @@ class ControlManager {
   private func handleGestureOne() {
     switch flowState {
       case .view:
-        flowState = .view
-        print("focus next")
+          //Focus on first focusable object in scene
+        flowState = .focus
+        delegate?.focusOnNextObject()
       case .focus:
         print("do nothing")
       case .edit:
-        print("select translation mode")
+          //Enter on Action(Translation) mode
+        flowState = .action
+        delegate?.selectedTransformationType = .translation
       case .action:
-        print("toggle x axe")
+          //Toggle OX axe for edit
+        if let delegate = delegate {
+          delegate.isOxSelected = !delegate.isOxSelected
+        }
+      case .notes:
+        print("notes")
     }
   }
   
   private func handleGestureTwo() {
     switch flowState {
-      case .view:
-        print("do nothing")
-      case .focus:
+      case .view,.focus:
         print("do nothing")
       case .edit:
-        print("select rotation mode")
+          //Enter on Action(Rotation) mode
+        flowState = .action
+        delegate?.selectedTransformationType = .rotation
       case .action:
-        print("toggle y axe")
+          //Toggle OY axe for edit
+        if let delegate = delegate {
+          delegate.isOySelected = !delegate.isOySelected
+        }
+      case .notes:
+        print("notes")
     }
   }
   
   private func handleGestureThree() {
     switch flowState {
-      case .view:
-        print("do nothing")
-      case .focus:
+      case .view,.focus:
         print("do nothing")
       case .edit:
-        print("select scale mode")
+          //Enter on Action(Scale) mode
+        flowState = .action
+        delegate?.selectedTransformationType = .scale
       case .action:
-        print("toggle z axe")
+          //Toggle OZ axe for edit
+        if let delegate = delegate {
+          delegate.isOzSelected = !delegate.isOzSelected
+        }
+      case .notes:
+        print("notes")
     }
   }
   
@@ -114,11 +123,14 @@ class ControlManager {
       case .view:
         print("do nothing")
       case .focus:
-        print("confirm object and enter Edit flow")
+        flowState = .edit
       case .edit:
-        print("save object changes and return to Focus flow with current object selected")
+        delegate?.saveChanges()
+        flowState = .focus
       case .action:
-        print("increase value")
+        delegate?.increaseTransformActionValue()
+      case .notes:
+        print("notes")
     }
   }
   
@@ -127,17 +139,21 @@ class ControlManager {
       case .view:
         print("do nothing")
       case .focus:
-        print("unfocus and return to View flow")
+        delegate?.unfocus()
+        flowState = .view
       case .edit:
-        print("discard changes")
+        delegate?.discardChanges()
+        flowState = .focus
       case .action:
-        print("decrease value")
+        delegate?.decreaseTransformActionValue()
+      case .notes:
+        print("notes")
     }
   }
   
   private func handleGesturePinch() {
     print("write on the whiteboard")
-    // TODO: ne gandim la scenariul in care vrei sa stergi
+      // TODO: ne gandim la scenariul in care vrei sa stergi
   }
   
   private func handleGestureBackground() {
@@ -147,13 +163,15 @@ class ControlManager {
   private func handleGestureSwipe() {
     switch flowState {
       case .view:
-        print("go to next scene")
+        delegate?.loadNextScene()
       case .focus:
-        print("go to next object")
+        delegate?.focusOnNextObject()
       case .edit:
-        print("remove layer")
+        delegate?.removeUpperLayer()
       case .action:
         print("do nothing")
+      case .notes:
+        print("notes")
     }
   }
   
@@ -162,10 +180,11 @@ class ControlManager {
   }
   
   private func handleGesturePalm() {
-    if flowState == .action {
-      print("save actions and go back to Edit flow")
+      //palm will be used only for action for stopping modifications
+    if flowState != .action {
+      print("go to notes mode")
     } else {
-      print("do nothing")
+      print("exit notes mode")
     }
   }
 }

@@ -42,4 +42,5 @@ enum FlowState: String {
   case focus
   case edit
   case action
+  case notes
 }
