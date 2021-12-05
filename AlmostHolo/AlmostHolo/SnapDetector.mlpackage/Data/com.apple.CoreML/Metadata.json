@@ -1,0 +1,13 @@
+{
+  "MLModelVersionStringKey" : "--",
+  "MLModelDescriptionKey" : "--",
+  "MLModelCreatorDefinedKey" : {
+    "com.apple.createml.version" : "12.0.1",
+    "com.apple.createml.app.tag" : "78.6",
+    "com.apple.createml.app.version" : "3.0",
+    "sampleRate" : "16000",
+    "com.apple.coreml.model.preview.type" : "soundClassifier"
+  },
+  "MLModelAuthorKey" : "Radu Flocea",
+  "MLModelLicenseKey" : "--"
+}

@@ -1,0 +1,24 @@
+{
+    "fileFormatVersion": "1.0.0",
+    "itemInfoEntries": {
+        "2174A036-EF55-4643-915C-A7F5866B50A6": {
+            "author": "com.apple.CoreML",
+            "description": "External Metadata Overlay",
+            "name": "Metadata.json",
+            "path": "com.apple.CoreML/Metadata.json"
+        },
+        "3CE13A86-3636-4B78-89FC-CC03368FE8F0": {
+            "author": "com.apple.CoreML",
+            "description": "CoreML Model Specification",
+            "name": "SnapDetector.mlmodel",
+            "path": "com.apple.CoreML/SnapDetector.mlmodel"
+        },
+        "4432F62C-F9FC-42F9-B78C-D763185CF67B": {
+            "author": "com.apple.CoreML",
+            "description": "External FeatureDescription Overlay",
+            "name": "FeatureDescriptions.json",
+            "path": "com.apple.CoreML/FeatureDescriptions.json"
+        }
+    },
+    "rootModelIdentifier": "3CE13A86-3636-4B78-89FC-CC03368FE8F0"
+}

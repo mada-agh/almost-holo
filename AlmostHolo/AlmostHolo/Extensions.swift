@@ -1,6 +1,7 @@
 import Foundation
 import SceneKit
 
+
 extension SCNNode {
   var isFocusable : Bool {
     get {
@@ -8,9 +9,27 @@ extension SCNNode {
     }
   }
   
-  var isLayered : Bool {
+  var hasLayeredSubnode : Bool {
     get {
-      return self.name?.contains("layered") ?? false
+      var hasLayeredSubnode = false
+      self.childNodes.forEach { subNode in
+        if subNode.name != nil && subNode.name!.contains("layered") {
+          hasLayeredSubnode = true
+        }
+      }
+      return hasLayeredSubnode
+    }
+  }
+  
+  var getLayeredSubNode : SCNNode? {
+    get {
+      var layeredSubnode : SCNNode? = nil
+      self.childNodes.forEach { subNode in
+        if subNode.name != nil && subNode.name!.contains("layered") {
+          layeredSubnode = subNode
+        }
+      }
+      return layeredSubnode
     }
   }
   
@@ -18,6 +37,7 @@ extension SCNNode {
     var min = SCNVector3Zero
     var max = SCNVector3Zero
     self.__getBoundingBoxMin(&min, max: &max)
+    print("Min -> \(min.x) and max \(max.x)")
     self.pivot = SCNMatrix4MakeTranslation(
       min.x + (max.x - min.x)/2,
       min.y + (max.y - min.y)/2,
